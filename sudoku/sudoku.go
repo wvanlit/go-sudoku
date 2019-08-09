@@ -8,8 +8,8 @@ import (
 
 var Version = "0.1"
 
-var random = rand.New(rand.NewSource(time.Now().Unix()))
 
+var random = rand.New(rand.NewSource(time.Now().Unix()))
 type SudokuGrid [9][9]int
 
 // Private struct with all variables
@@ -17,6 +17,7 @@ type sudoku struct {
 	grid   *SudokuGrid
 	solved bool
 	seed int64
+
 }
 
 // Public Struct for creating objects

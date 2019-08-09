@@ -74,3 +74,4 @@ func (s sudoku) randomisedBacktrackSolve() bool {
 	// So we return false to continue backtracking
 	return false
 }
+

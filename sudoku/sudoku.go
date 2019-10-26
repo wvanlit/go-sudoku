@@ -6,18 +6,15 @@ import (
 	"time"
 )
 
-var Version = "0.1"
-
-
 var random = rand.New(rand.NewSource(time.Now().Unix()))
+
 type SudokuGrid [9][9]int
 
 // Private struct with all variables
 type sudoku struct {
 	grid   *SudokuGrid
 	solved bool
-	seed int64
-
+	seed   int64
 }
 
 // Public Struct for creating objects
@@ -50,10 +47,20 @@ func (s sudoku) SetGrid(g SudokuGrid) {
 }
 
 func (s sudoku) GetValueOnPosition(x int, y int) int {
+	if y >= len(s.grid) || x >= len(s.grid){
+		return 0
+	}
 	return s.grid[y][x]
 }
 func (s sudoku) SetValueOnPosition(value int, x int, y int) {
-	s.grid[y][x] = value
+	if y < len(s.grid) || x < len(s.grid){
+		s.grid[y][x] = value
+	}
+}
+func (s sudoku) DeleteValueOnPosition(x int, y int){
+	if y < len(s.grid) || x < len(s.grid){
+		s.grid[y][x] = 0
+	}
 }
 
 func (s sudoku) PrintSudoku() {
@@ -102,7 +109,7 @@ func (s sudoku) Validate() bool {
 
 	return true
 }
-func (s sudoku) hasIllegalValues() bool{
+func (s sudoku) hasIllegalValues() bool {
 	// TODO
 	return false
 }
@@ -177,7 +184,7 @@ func (s sudoku) foundInRow(value int, rowIndex int) bool {
 	return false
 }
 func (s sudoku) isValid(value int, x int, y int) bool {
-	return !s.foundInCell(value, x / 3, y / 3) &&
+	return !s.foundInCell(value, x/3, y/3) &&
 		!s.foundInColumn(value, x) &&
 		!s.foundInRow(value, y)
 }

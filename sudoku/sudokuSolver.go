@@ -55,15 +55,15 @@ func (s sudoku) randomisedBacktrackSolve() bool {
 	}
 	x, y := s.getNextUnassignedValue()
 	// Try every possible combination
-	digits := [9]int{1,2,3,4,5,6,7,8,9}
+	digits := [9]int{1, 2, 3, 4, 5, 6, 7, 8, 9}
 	random.Shuffle(9, func(i, j int) {
 		digits[i], digits[j] = digits[j], digits[i]
 	})
-	for _,value := range digits {
+	for _, value := range digits {
 		if s.isValid(value, x, y) {
 			s.SetValueOnPosition(value, x, y)
 			// Recursively call this function again to continue solving
-			if s.backtrackSolve() {
+			if s.randomisedBacktrackSolve() {
 				return true
 			}
 			// If the solve failed we reset the position
@@ -74,4 +74,3 @@ func (s sudoku) randomisedBacktrackSolve() bool {
 	// So we return false to continue backtracking
 	return false
 }
-
